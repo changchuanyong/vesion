@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import time
 from pathlib import Path
 
@@ -18,6 +19,7 @@ EDGES_PATH = OUT_DIR / "latest_edges.jpg"
 VIS_PATH = OUT_DIR / "latest_edges_vis.jpg"
 
 SHOW_WINDOW = True
+KEY_WINDOWS_ONLY = os.environ.get("VISION_KEY_WINDOWS", "0") == "1"
 SLEEP_SHORT = 0.05
 
 # 显示窗口最大尺寸（按比例缩放，不拉伸）
@@ -229,12 +231,15 @@ def main():
             printed_shape = True
 
         if SHOW_WINDOW:
-            show_keep_ratio("roi", frame)
-            show_keep_ratio("enhanced", enhanced)
-            show_keep_ratio("smooth", smooth)
-            show_keep_ratio("grad_mag", grad_mag)
-            show_keep_ratio("edges", edges)
-            show_keep_ratio("edges_vis", vis)
+            if KEY_WINDOWS_ONLY:
+                show_keep_ratio("edges_vis", vis)
+            else:
+                show_keep_ratio("roi", frame)
+                show_keep_ratio("enhanced", enhanced)
+                show_keep_ratio("smooth", smooth)
+                show_keep_ratio("grad_mag", grad_mag)
+                show_keep_ratio("edges", edges)
+                show_keep_ratio("edges_vis", vis)
 
             key = cv2.waitKey(1) & 0xFF
             if key == 27:

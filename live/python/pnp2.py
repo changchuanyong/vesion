@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import csv
 import json
 from pathlib import Path
@@ -21,7 +22,7 @@ FULL_IMAGE_PATH = ROOT_DIR / "dataset" / "live" / "latest.jpg"
 POSE_JSON_PATH = ROOT_DIR / "dataset" / "live" / "latest_pose.json"
 POSE_VIS_PATH = ROOT_DIR / "dataset" / "live" / "latest_pose_vis.jpg"
 
-SHOW_WINDOW = True
+SHOW_WINDOW = os.environ.get("VISION_PIPELINE_MODE", "0") != "1"
 POINTS_ARE_IN_ROI = True
 AXIS_LEN_MM = 20.0
 

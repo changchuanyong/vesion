@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import json
 import math
 from dataclasses import dataclass, asdict
@@ -21,7 +22,7 @@ CAND_VIS_PATH = OUT_DIR / "latest_candidate_contours.jpg"
 CENTER_VIS_PATH = OUT_DIR / "latest_fitted_centers.jpg"
 CENTER_JSON_PATH = OUT_DIR / "latest_fitted_centers.json"
 
-SHOW_WINDOW = True
+SHOW_WINDOW = os.environ.get("VISION_PIPELINE_MODE", "0") != "1"
 SHOW_RAW_CENTER = True
 
 # ---------- 单轮廓几何约束 ----------

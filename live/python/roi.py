@@ -30,6 +30,7 @@ MIN_PADDING = 20         # 最小外扩像素
 PAD_RATIO = 0.08         # 按检测框尺寸自适应外扩
 SLEEP_SHORT = 0.03
 SHOW_WINDOW = True
+KEY_WINDOWS_ONLY = os.environ.get("VISION_KEY_WINDOWS", "0") == "1"
 
 SAVE_RECENT = False      # 这里只做单独 ROI，默认关掉缓存
 KEEP_RECENT = 100
@@ -358,7 +359,7 @@ def main():
         if SHOW_WINDOW:
             cv2.imshow("YOLO ROI Watch", vis)
 
-            if last_valid_roi is not None:
+            if (not KEY_WINDOWS_ONLY) and last_valid_roi is not None:
                 cv2.imshow("Latest ROI", last_valid_roi)
 
             key = cv2.waitKey(1) & 0xFF

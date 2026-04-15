@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import cv2
@@ -17,7 +18,7 @@ OUTPUT_PATH = ROOT_DIR / "dataset" / "live" / "latest_roi_enhanced.jpg"
 SAVE_DEBUG = True
 DEBUG_DIR = OUTPUT_PATH.parent / "debug_roi_enhance"
 
-SHOW_WINDOW = True
+SHOW_WINDOW = os.environ.get("VISION_PIPELINE_MODE", "0") != "1"
 MAX_SHOW_W = 1200
 MAX_SHOW_H = 900
 
