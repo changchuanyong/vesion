@@ -99,7 +99,7 @@ int main() {
     cv::Mat bgrMat;
 
     // 这里改成你要保存训练图的目录
-    const std::string saveFolder = R"(C:\Users\chang\Desktop\doc\vesion\yolo_port\images\train)";
+    const std::string saveFolder = R"(C:\Users\chang\Desktop\doc\Vision\yolo_port\images\train)";
     CreateDirectoryRecursive(saveFolder);
 
     cv::namedWindow("Kinect Color", cv::WINDOW_NORMAL);

@@ -69,7 +69,7 @@ int main() {
     cv::Mat displayMat;
     cv::Mat bgrMat;
 
-    std::string saveFolder = "C:\\Users\\chang\\Desktop\\doc\\vesion\\dataset\\live";
+    std::string saveFolder = "C:\\Users\\chang\\Desktop\\doc\\Vision\\dataset\\live";
     std::string tempPath = saveFolder + "\\latest_tmp.jpg";
     std::string finalPath = saveFolder + "\\latest.jpg";
 

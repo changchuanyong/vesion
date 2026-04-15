@@ -9,8 +9,9 @@ import numpy as np
 # ======================
 # 你只改这里
 # ======================
-INPUT_PATH = Path(r"C:\Users\chang\Desktop\doc\vesion\dataset\live\latest_roi.jpg")
-OUTPUT_PATH = Path(r"C:\Users\chang\Desktop\doc\vesion\dataset\live\latest_roi_enhanced.jpg")
+ROOT_DIR = Path(__file__).resolve().parents[2]
+INPUT_PATH = ROOT_DIR / "dataset" / "live" / "latest_roi.jpg"
+OUTPUT_PATH = ROOT_DIR / "dataset" / "live" / "latest_roi_enhanced.jpg"
 
 # 是否保存中间结果，方便你看每一步
 SAVE_DEBUG = True

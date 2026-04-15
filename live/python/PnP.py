@@ -12,8 +12,9 @@ import numpy as np
 # =========================
 # 1. 路径
 # =========================
-MODEL_CSV = Path(r"C:\Users\chang\Desktop\doc\vesion\config\charging_port_model.csv")
-FITTED_JSON = Path(r"C:\Users\chang\Desktop\doc\vesion\dataset\live\latest_fitted_centers.json")
+ROOT_DIR = Path(__file__).resolve().parents[2]
+MODEL_CSV = ROOT_DIR / "config" / "charging_port_model.csv"
+FITTED_JSON = ROOT_DIR / "dataset" / "live" / "latest_fitted_centers.json"
 
 
 # =========================

@@ -10,7 +10,8 @@ import numpy as np
 # =========================
 # 你先改这里
 # =========================
-ROI_IMAGE_PATH = Path(r"C:\Users\chang\Desktop\doc\vesion\dataset\live\latest_roi_enhanced.jpg")
+ROOT_DIR = Path(__file__).resolve().parents[2]
+ROI_IMAGE_PATH = ROOT_DIR / "dataset" / "live" / "latest_roi_enhanced.jpg"
 OUT_DIR = ROI_IMAGE_PATH.parent
 
 EDGES_PATH = OUT_DIR / "latest_edges.jpg"

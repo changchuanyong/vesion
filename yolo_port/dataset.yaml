@@ -1,4 +1,4 @@
-path: C:/Users/chang/Desktop/doc/vesion/yolo_port
+path: .
 train: images/train
 val: images/val
 names:
