@@ -16,11 +16,14 @@ CANNY_WATCH_PY = PY_WORK_DIR / "Canny.py"
 ENHANCE_PY = PY_WORK_DIR / "enhance.py"
 CONTOURS_PY = PY_WORK_DIR / "latest_candidate_contours.py"
 PNP_STEP_PY = PY_WORK_DIR / "pnp2.py"
+POST_VIS_WATCH_PY = PY_WORK_DIR / "post_vis_watch.py"
 
 PYTHON_EXE = WORK_DIR / ".yolo_env" / "Scripts" / "python.exe"
 START_DELAY = 2.0
 ALLOW_NO_CAMERA_DURING_DEBUG = True
 KEY_WINDOWS_ONLY = True
+SHOW_POST_WINDOWS_IN_PIPELINE = False
+POST_WINDOW_WAIT_MS = 700
 
 ROI_FILE = LIVE_DIR / "latest_roi.jpg"
 ENHANCED_FILE = LIVE_DIR / "latest_roi_enhanced.jpg"
@@ -67,6 +70,12 @@ def main():
     child_env["VISION_PIPELINE_MODE"] = "1"
     if KEY_WINDOWS_ONLY:
         child_env["VISION_KEY_WINDOWS"] = "1"
+    if SHOW_POST_WINDOWS_IN_PIPELINE:
+        child_env["VISION_SHOW_POST_WINDOWS"] = "1"
+    child_env["VISION_WINDOW_WAIT_MS"] = str(POST_WINDOW_WAIT_MS)
+    child_env["VISION_SHOW_BASE_WINDOWS"] = "0"
+    child_env["VISION_SHOW_ROI_WINDOW"] = "1"
+    child_env["VISION_SHOW_CANNY_WINDOW"] = "0"
 
     if not PNP_STEP_PY.exists():
         raise FileNotFoundError(f"PnP step script not found: {PNP_STEP_PY}")
@@ -97,6 +106,14 @@ def main():
             env=child_env,
         )
         processes.append(("canny_watch", p3))
+
+        p4 = start_process(
+            [python_cmd, str(POST_VIS_WATCH_PY)],
+            cwd=str(WORK_DIR),
+            name="post_vis_watch",
+            env=child_env,
+        )
+        processes.append(("post_vis_watch", p4))
 
         print("\nAll processes started.")
         print("Press Ctrl+C to stop all.\n")

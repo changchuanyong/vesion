@@ -18,7 +18,11 @@ OUTPUT_PATH = ROOT_DIR / "dataset" / "live" / "latest_roi_enhanced.jpg"
 SAVE_DEBUG = True
 DEBUG_DIR = OUTPUT_PATH.parent / "debug_roi_enhance"
 
-SHOW_WINDOW = os.environ.get("VISION_PIPELINE_MODE", "0") != "1"
+PIPELINE_MODE = os.environ.get("VISION_PIPELINE_MODE", "0") == "1"
+SHOW_POST_WINDOWS = os.environ.get("VISION_SHOW_POST_WINDOWS", "0") == "1"
+KEY_WINDOWS_ONLY = os.environ.get("VISION_KEY_WINDOWS", "0") == "1"
+WINDOW_WAIT_MS = max(1, int(os.environ.get("VISION_WINDOW_WAIT_MS", "700")))
+SHOW_WINDOW = (not PIPELINE_MODE) or SHOW_POST_WINDOWS
 MAX_SHOW_W = 1200
 MAX_SHOW_H = 900
 
@@ -169,14 +173,16 @@ def main():
         print(f"Debug saved to: {DEBUG_DIR}")
 
     if SHOW_WINDOW:
-        show_keep_ratio("roi_input", roi)
-        show_keep_ratio("01_gray", results["gray"])
-        show_keep_ratio("02_gamma", results["gamma"])
-        show_keep_ratio("03_clahe", results["clahe"])
-        show_keep_ratio("04_filtered", results["filtered"])
-        show_keep_ratio("05_final", results["final"])
-        print("Press any key to exit...")
-        cv2.waitKey(0)
+        if KEY_WINDOWS_ONLY:
+            show_keep_ratio("enhance_final", results["final"])
+        else:
+            show_keep_ratio("roi_input", roi)
+            show_keep_ratio("01_gray", results["gray"])
+            show_keep_ratio("02_gamma", results["gamma"])
+            show_keep_ratio("03_clahe", results["clahe"])
+            show_keep_ratio("04_filtered", results["filtered"])
+            show_keep_ratio("05_final", results["final"])
+        cv2.waitKey(WINDOW_WAIT_MS)
         cv2.destroyAllWindows()
 
 

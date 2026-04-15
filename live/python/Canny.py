@@ -18,7 +18,11 @@ OUT_DIR = ROI_IMAGE_PATH.parent
 EDGES_PATH = OUT_DIR / "latest_edges.jpg"
 VIS_PATH = OUT_DIR / "latest_edges_vis.jpg"
 
-SHOW_WINDOW = True
+SHOW_WINDOW = (
+    os.environ.get("VISION_SHOW_CANNY_WINDOW")
+    if os.environ.get("VISION_SHOW_CANNY_WINDOW") is not None
+    else os.environ.get("VISION_SHOW_BASE_WINDOWS", "1")
+) == "1"
 KEY_WINDOWS_ONLY = os.environ.get("VISION_KEY_WINDOWS", "0") == "1"
 SLEEP_SHORT = 0.05
 

@@ -29,7 +29,11 @@ CONF_THRES = 0.25
 MIN_PADDING = 20         # 最小外扩像素
 PAD_RATIO = 0.08         # 按检测框尺寸自适应外扩
 SLEEP_SHORT = 0.03
-SHOW_WINDOW = True
+SHOW_WINDOW = (
+    os.environ.get("VISION_SHOW_ROI_WINDOW")
+    if os.environ.get("VISION_SHOW_ROI_WINDOW") is not None
+    else os.environ.get("VISION_SHOW_BASE_WINDOWS", "1")
+) == "1"
 KEY_WINDOWS_ONLY = os.environ.get("VISION_KEY_WINDOWS", "0") == "1"
 
 SAVE_RECENT = False      # 这里只做单独 ROI，默认关掉缓存
