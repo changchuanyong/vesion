@@ -222,7 +222,7 @@ def main():
             continue
 
         try:
-            frame = cv2.imread(IMAGE_PATH)
+            frame = cv2.imread(str(IMAGE_PATH))
         except (cv2.error, OSError, PermissionError):
             time.sleep(SLEEP_SHORT)
             continue

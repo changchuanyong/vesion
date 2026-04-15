@@ -13,8 +13,9 @@ PY_WORK_DIR = WORK_DIR / "live" / "python"
 KINECT_EXE = CPP_WORK_DIR / "kinect_live_capture_atomic.exe"
 ROI_WATCH_PY = PY_WORK_DIR / "roi.py"
 
-PYTHON_EXE = WORK_DIR / ".venv" / "Scripts" / "python.exe"
-START_DELAY = 2.0   # 先启动采图，再等 2 秒启动检测
+PYTHON_EXE = WORK_DIR / ".yolo_env" / "Scripts" / "python.exe"
+START_DELAY = 2.0   # 启动采图后等待再启动检测
+ALLOW_NO_CAMERA_DURING_DEBUG = True  # 调试阶段相机未连接时，允许继续运行
 # ===================
 
 
@@ -51,9 +52,16 @@ def main():
         print("Press Ctrl+C to stop all.\n")
 
         while True:
-            for name, proc in processes:
+            for name, proc in list(processes):
                 ret = proc.poll()
                 if ret is not None:
+                    if name == "kinect_capture" and ALLOW_NO_CAMERA_DURING_DEBUG:
+                        print(
+                            f"[WARN] {name} exited with code {ret}. "
+                            "Camera may be disconnected; continuing in debug mode."
+                        )
+                        processes = [(n, p) for n, p in processes if n != name]
+                        continue
                     print(f"[EXIT] {name} exited with code {ret}")
                     raise RuntimeError(f"{name} stopped unexpectedly.")
             time.sleep(0.5)
