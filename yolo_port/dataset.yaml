@@ -1,0 +1,5 @@
+path: C:/Users/chang/Desktop/doc/vesion/yolo_port
+train: images/train
+val: images/val
+names:
+  0: port

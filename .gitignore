@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.yolo_env/
+
+# VS Code
+.vscode/
+
+# YOLO training outputs and weights
+runs/
+*.pt
+
+# Live capture outputs and debug artifacts
+dataset/live/latest*.jpg
+dataset/live/latest*.json
+dataset/live/recent_roi/
+dataset/live/debug_roi_enhance/
+
+# C/C++ build artifacts
+*.obj
+*.pdb
+*.ilk
+*.exe
+live/cpp/kinect_log.txt
+train/cpp/*.obj
+train/cpp/*.pdb
+train/cpp/*.ilk
+train/cpp/*.exe
